@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج التسجيل في برنامج الدكتوراه - PhD Registration Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+            line-height: 1.6;
+        }
+
+        :root {
+            --primary-color: #28a745;
+            --primary-dark: #218838;
+            --primary-light: #d4edda;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: #e9ecef;
+            height: 4px;
+            width: 100%;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .header {
+            padding: 48px 40px 32px;
+            text-align: center;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 15px;
+            color: #6c757d;
+        }
+
+        /* Step Indicator */
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 32px 40px 24px;
+            gap: 12px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e9ecef;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background: #28a745;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 13px;
+            color: #6c757d;
+            font-weight: 500;
+            display: none;
+        }
+
+        .step-divider {
+            width: 40px;
+            height: 2px;
+            background: #e9ecef;
+        }
+
+        .form-content {
+            padding: 24px 40px 48px;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #1a1a1a;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .section-description {
+            font-size: 14px;
+            color: #6c757d;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        /* Form Grid for Two Columns */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #495057;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #dc3545;
+            margin-left: 4px;
+        }
+
+        .helper-text {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            background: white;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.1);
+        }
+
+        .form-group input[type="text"]:hover,
+        .form-group input[type="email"]:hover,
+        .form-group input[type="tel"]:hover,
+        .form-group textarea:hover,
+        .form-group select:hover {
+            border-color: #adb5bd;
+        }
+
+        .form-group input.error,
+        .form-group select.error {
+            border-color: #dc3545;
+        }
+
+        .error-text {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Radio and Checkbox Styling */
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-item, .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .radio-item:hover, .checkbox-item:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+
+        .radio-item input[type="radio"],
+        .checkbox-item input[type="checkbox"] {
+            margin-left: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+        }
+
+        .radio-item label,
+        .checkbox-item label {
+            margin-bottom: 0;
+            cursor: pointer;
+            flex: 1;
+            font-weight: 400;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .radio-item.selected,
+        .checkbox-item.selected {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--primary-light);
+            border-right: 3px solid var(--primary-color);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .info-box p {
+            margin: 0;
+            color: #495057;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Button Group */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #495057;
+            border: 1px solid #ced4da;
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9fa;
+            border-color: #adb5bd;
+        }
+
+        /* Success/Error Messages */
+        .success-message {
+            display: none;
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border: 1px solid #badbcc;
+            animation: slideDown 0.3s ease;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #842029;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border: 1px solid #f5c2c7;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+            }
+
+            .form-content, .header {
+                padding-right: 24px;
+                padding-left: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .step-label {
+                display: none;
+            }
+
+            .step-indicator {
+                padding: 24px 24px 16px;
+            }
+
+            .button-group {
+                flex-direction: column-reverse;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* File Upload Styling */
+        .file-upload-label {
+            display: block;
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border: 2px dashed var(--primary-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+            margin-top: 8px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .file-upload-label:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-dark);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-name {
+            display: block;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Accessibility improvements */
+        *:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="header">
+            <img src="logo.png" alt="Logo" style="max-width: 300px; margin-bottom: 20px;">
+            <h1>طلب الالتحاق الإلكتروني</h1>
+            <p>نموذج التسجيل في برامج الدراسات العليا</p>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" id="step1Indicator">
+                <div class="step-number">1</div>
+                <span class="step-label">المعلومات الشخصية والتعليمية</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step" id="step2Indicator">
+                <div class="step-number">2</div>
+                <span class="step-label">اختيار التخصص</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step" id="step3Indicator">
+                <div class="step-number">3</div>
+                <span class="step-label">الوثائق المطلوبة</span>
+            </div>
+        </div>
+
+        <div class="form-content">
+            <div id="successMessage" class="success-message">
+                <strong>✓ تم الإرسال بنجاح!</strong>
+                <p>تم استلام طلبك وسيتم مراجعته قريباً.</p>
+            </div>
+
+            <div id="errorMessage" class="error-message">
+                <strong>✗ حدث خطأ</strong>
+                <p>يرجى المحاولة مرة أخرى أو الاتصال بالدعم الفني.</p>
+            </div>
+
+            <form id="registrationForm">
+                <!-- Step 1: Personal and Educational Information -->
+                <div class="form-step active" id="step1">
+                    <div class="section-title">المعلومات الشخصية والتعليمية</div>
+                    <p class="section-description">الرجاء تعبئة جميع الحقول المطلوبة</p>
+
+                    <!-- المعلومات الشخصية -->
+                    <h3 style="font-size: 16px; color: #495057; margin-bottom: 16px; font-weight: 600;">المعلومات الشخصية</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>الاسم الأول <span class="required">*</span></label>
+                            <input type="text" name="firstName" required placeholder="الاسم الأول">
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>اسم الأب <span class="required">*</span></label>
+                            <input type="text" name="fatherName" required placeholder="اسم الأب">
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>اسم الجد <span class="required">*</span></label>
+                            <input type="text" name="grandfatherName" required placeholder="اسم الجد">
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>اسم العائلة <span class="required">*</span></label>
+                            <input type="text" name="familyName" required placeholder="اسم العائلة">
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row single">
+                        <div class="form-group">
+                            <label>الجنسية <span class="required">*</span></label>
+                            <input type="text" name="nationality" required placeholder="الجنسية">
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+                    </div>
+
+                    <!-- تفاصيل العنوان -->
+                    <h3 style="font-size: 16px; color: #495057; margin: 24px 0 16px; font-weight: 600;">تفاصيل العنوان</h3>
+
+                    <div class="form-row single">
+                        <div class="form-group">
+                            <label>العنوان (المنطقة) <span class="required">*</span></label>
+                            <input type="text" name="address" required placeholder="المنطقة / المدينة">
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>رقم الشارع <span class="required">*</span></label>
+                            <input type="text" name="streetNumber" required placeholder="رقم الشارع">
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>رقم المنزل <span class="required">*</span></label>
+                            <input type="text" name="houseNumber" required placeholder="رقم المنزل">
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+                    </div>
+
+                    <!-- معلومات الاتصال -->
+                    <h3 style="font-size: 16px; color: #495057; margin: 24px 0 16px; font-weight: 600;">معلومات الاتصال</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>رقم هاتف الطالب <span class="required">*</span></label>
+                            <input type="tel" name="studentPhone" required placeholder="+966 5XXXX XXXX" value="+966 ">
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>رقم هاتف العمل</label>
+                            <input type="tel" name="workPhone" placeholder="+966 5XXXX XXXX" value="+966 ">
+                        </div>
+                    </div>
+
+                    <div class="form-row single">
+                        <div class="form-group">
+                            <label>عنوان البريد الإلكتروني <span class="required">*</span></label>
+                            <input type="email" name="email" required placeholder="example@email.com">
+                            <span class="helper-text">سنرسل لك تأكيد التسجيل على هذا البريد</span>
+                            <span class="error-text">يرجى إدخال بريد إلكتروني صحيح</span>
+                        </div>
+                    </div>
+
+                    <!-- المرفقات -->
+                    <h3 style="font-size: 16px; color: #495057; margin: 24px 0 16px; font-weight: 600;">المرفقات</h3>
+
+                    <div class="form-row single">
+                        <div class="form-group">
+                            <label>السيرة الذاتية (CV)</label>
+                            <input type="file" id="cvFile" name="cvFile" accept=".pdf,.doc,.docx">
+                            <label for="cvFile" class="file-upload-label">
+                                📎 اختر ملف السيرة الذاتية (PDF, DOC, DOCX)
+                            </label>
+                            <span class="file-name" id="cvFileName"></span>
+                            <span class="helper-text">اختياري - يمكنك رفع السيرة الذاتية</span>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                            التالي ←
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Program Selection -->
+                <div class="form-step" id="step2">
+                    <div class="section-title">اختيار التخصص</div>
+                    <p class="section-description">الرجاء اختيار نوع البرنامج والتخصص</p>
+
+                    <div class="form-row single">
+                        <div class="form-group">
+                            <label>نوع البرنامج <span class="required">*</span></label>
+                            <select id="programType" name="programType" required>
+                                <option value="">اختر نوع البرنامج</option>
+                                <option value="masters">ماجستير (Masters)</option>
+                                <option value="phd">دكتوراه (PhD)</option>
+                                <option value="bachelor">بكالوريوس (Bachelor)</option>
+                            </select>
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row single" id="mastersProgramsField" style="display: none;">
+                        <div class="form-group">
+                            <label>تخصص الماجستير <span class="required">*</span></label>
+                            <select name="mastersProgram" id="mastersProgram">
+                                <option value="">اختر تخصص الماجستير</option>
+                                <option value="MBA (ماجستير إدارة الأعمال)">MBA (ماجستير إدارة الأعمال)</option>
+                                <option value="Artificial Intelligence (الذكاء الاصطناعي)">Artificial Intelligence (الذكاء الاصطناعي)</option>
+                                <option value="Law (القانون)">Law (القانون)</option>
+                                <option value="Engineering (الهندسة)">Engineering (الهندسة)</option>
+                                <option value="Media / Mass Communication (الإعلام)">Media / Mass Communication (الإعلام)</option>
+                                <option value="Human Resources (الموارد البشرية)">Human Resources (الموارد البشرية)</option>
+                                <option value="FinTech (التكنولوجيا المالية)">FinTech (التكنولوجيا المالية)</option>
+                                <option value="Supply Chain Management (إدارة سلسلة الإمداد)">Supply Chain Management (إدارة سلسلة الإمداد)</option>
+                                <option value="Computer Science (علم الحاسوب)">Computer Science (علم الحاسوب)</option>
+                                <option value="Design Management (إدارة التصميم)">Design Management (إدارة التصميم)</option>
+                                <option value="Interior Design (التصميم الداخلي)">Interior Design (التصميم الداخلي)</option>
+                                <option value="Fashion Design (تصميم الأزياء)">Fashion Design (تصميم الأزياء)</option>
+                            </select>
+                            <span class="helper-text">يرجى اختيار التخصص المناسب من القائمة</span>
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row single" id="phdProgramsField" style="display: none;">
+                        <div class="form-group">
+                            <label>تخصص الدكتوراه <span class="required">*</span></label>
+                            <select name="phdProgram" id="phdProgram">
+                                <option value="">اختر تخصص الدكتوراه</option>
+                                <option value="Business Management (إدارة الأعمال)">Business Management (إدارة الأعمال)</option>
+                                <option value="Law (القانون)">Law (القانون)</option>
+                                <option value="Accounting (المحاسبة)">Accounting (المحاسبة)</option>
+                                <option value="Media (إعلام)">Media (إعلام)</option>
+                            </select>
+                            <span class="helper-text">يرجى اختيار التخصص المناسب من القائمة</span>
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row single" id="bachelorProgramsField" style="display: none;">
+                        <div class="form-group">
+                            <label>تخصص البكالوريوس <span class="required">*</span></label>
+                            <select name="bachelorProgram" id="bachelorProgram">
+                                <option value="">اختر تخصص البكالوريوس</option>
+                                <option value="Cybersecurity (الأمن السيبراني)">Cybersecurity (الأمن السيبراني)</option>
+                                <option value="Business Administration (إدارة الأعمال)">Business Administration (إدارة الأعمال)</option>
+                                <option value="Media / Communication (الإعلام)">Media / Communication (الإعلام)</option>
+                                <option value="Computer Science (علوم الحاسوب)">Computer Science (علوم الحاسوب)</option>
+                                <option value="Information Systems / IT (نظم المعلومات / تقنية المعلومات)">Information Systems / IT (نظم المعلومات / تقنية المعلومات)</option>
+                                <option value="Engineering (الهندسة)">Engineering (الهندسة)</option>
+                            </select>
+                            <span class="helper-text">يرجى اختيار التخصص المناسب من القائمة</span>
+                            <span class="error-text">هذا الحقل مطلوب</span>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 24px;">
+                        <p><strong>ملاحظة:</strong> يرجى التأكد من اختيار البرنامج المناسب. يمكنك التواصل معنا في حال كان لديك أي استفسار حول البرامج المتاحة.</p>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
+                            → السابق
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                            التالي ←
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Documents -->
+                <div class="form-step" id="step3">
+                    <div class="section-title">قائمة التحقق من الوثائق المرفقة</div>
+                    <p class="section-description">الرجاء وضع علامة ✓ على الوثائق المتوفرة لديك</p>
+
+                    <!-- الوثائق الإلزامية -->
+                    <h3 style="font-size: 16px; color: #495057; margin-bottom: 16px; font-weight: 600;">الوثائق الإلزامية (يجب رفعها)</h3>
+                    
+                    <div class="info-box">
+                        <p><strong>تنبيه:</strong> الوثائق التالية إلزامية ويجب توفرها لإتمام عملية التسجيل</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>صورة من جواز السفر <span class="required">*</span></label>
+                        <input type="file" id="passportFile" name="passportFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <label for="passportFile" class="file-upload-label">
+                            📎 اختر ملف جواز السفر
+                        </label>
+                        <span class="file-name" id="passportFileName"></span>
+                        <span class="error-text">هذا الحقل مطلوب</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>صورة من الهوية / البطاقة الذكية <span class="required">*</span></label>
+                        <input type="file" id="idFile" name="idFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <label for="idFile" class="file-upload-label">
+                            📎 اختر ملف الهوية
+                        </label>
+                        <span class="file-name" id="idFileName"></span>
+                        <span class="error-text">هذا الحقل مطلوب</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>شهادة البكالوريوس وكشف الدرجات <span class="required">*</span></label>
+                        <input type="file" id="bachelorFile" name="bachelorFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <label for="bachelorFile" class="file-upload-label">
+                            📎 اختر ملف شهادة البكالوريوس
+                        </label>
+                        <span class="file-name" id="bachelorFileName"></span>
+                        <span class="error-text">هذا الحقل مطلوب</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>شهادة الماجستير وكشف الدرجات <span style="color: #667eea;">(لمتقدمي الدكتوراه)</span> <span class="required">*</span></label>
+                        <input type="file" id="mastersFile" name="mastersFile" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <label for="mastersFile" class="file-upload-label">
+                            📎 اختر ملف شهادة الماجستير
+                        </label>
+                        <span class="file-name" id="mastersFileName"></span>
+                        <span class="error-text">هذا الحقل مطلوب</span>
+                    </div>
+
+                    <!-- الوثائق الاختيارية -->
+                    <h3 style="font-size: 16px; color: #495057; margin: 32px 0 16px; font-weight: 600;">الوثائق الاختيارية / التي يمكن تأجيلها</h3>
+                    
+                    <div class="info-box" style="background: #fff3cd; border-right-color: #ffc107;">
+                        <p><strong>ملاحظة:</strong> الوثائق التالية اختيارية أو يمكن تقديمها في وقت لاحق</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>شهادة الخبرة <span style="color: #6c757d;">(اختياري)</span></label>
+                        <input type="file" id="experienceFile" name="experienceFile" accept=".pdf,.jpg,.jpeg,.png">
+                        <label for="experienceFile" class="file-upload-label">
+                            📎 اختر ملف شهادة الخبرة
+                        </label>
+                        <span class="file-name" id="experienceFileName"></span>
+                        <span class="helper-text">اختياري</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>صورة شخصية <span style="color: #6c757d;">(غير ضرورية)</span></label>
+                        <input type="file" id="photoFile" name="photoFile" accept=".jpg,.jpeg,.png">
+                        <label for="photoFile" class="file-upload-label">
+                            📎 اختر الصورة الشخصية
+                        </label>
+                        <span class="file-name" id="photoFileName"></span>
+                        <span class="helper-text">اختياري</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>شهادة الثانوية العامة <span style="color: #6c757d;">(يمكن تقديمها لاحقاً)</span></label>
+                        <input type="file" id="highSchoolFile" name="highSchoolFile" accept=".pdf,.jpg,.jpeg,.png">
+                        <label for="highSchoolFile" class="file-upload-label">
+                            📎 اختر ملف شهادة الثانوية
+                        </label>
+                        <span class="file-name" id="highSchoolFileName"></span>
+                        <span class="helper-text">اختياري</span>
+                    </div>
+
+                    <div class="form-row single" style="margin-top: 32px;">
+                        <div class="form-group">
+                            <label>ملاحظات إضافية</label>
+                            <textarea name="notes" placeholder="أي معلومات إضافية ترغب في إضافتها..." rows="4"></textarea>
+                            <span class="helper-text">اختياري - يمكنك ترك هذا الحقل فارغاً</span>
+                        </div>
+                    </div>
+
+                    <!-- Hidden fields -->
+                    <input type="hidden" name="submissionDate" id="submissionDate">
+                    <input type="hidden" name="timestamp" id="timestamp">
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(2)">
+                            → السابق
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            إرسال الطلب
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            setupEventListeners();
+        });
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Program type selection
+            const programTypeSelect = document.getElementById('programType');
+            if (programTypeSelect) {
+                programTypeSelect.addEventListener('change', function() {
+                    const mastersField = document.getElementById('mastersProgramsField');
+                    const phdField = document.getElementById('phdProgramsField');
+                    const bachelorField = document.getElementById('bachelorProgramsField');
+                    const mastersSelect = document.getElementById('mastersProgram');
+                    const phdSelect = document.getElementById('phdProgram');
+                    const bachelorSelect = document.getElementById('bachelorProgram');
+                    
+                    // Hide all fields first
+                    mastersField.style.display = 'none';
+                    phdField.style.display = 'none';
+                    bachelorField.style.display = 'none';
+                    mastersSelect.removeAttribute('required');
+                    phdSelect.removeAttribute('required');
+                    bachelorSelect.removeAttribute('required');
+                    
+                    if (this.value === 'masters') {
+                        mastersField.style.display = 'block';
+                        mastersSelect.setAttribute('required', 'required');
+                    } else if (this.value === 'phd') {
+                        phdField.style.display = 'block';
+                        phdSelect.setAttribute('required', 'required');
+                    } else if (this.value === 'bachelor') {
+                        bachelorField.style.display = 'block';
+                        bachelorSelect.setAttribute('required', 'required');
+                    }
+                });
+            }
+
+            // File upload display
+            const fileInputs = [
+                { input: 'cvFile', display: 'cvFileName' },
+                { input: 'passportFile', display: 'passportFileName' },
+                { input: 'idFile', display: 'idFileName' },
+                { input: 'bachelorFile', display: 'bachelorFileName' },
+                { input: 'mastersFile', display: 'mastersFileName' },
+                { input: 'experienceFile', display: 'experienceFileName' },
+                { input: 'photoFile', display: 'photoFileName' },
+                { input: 'highSchoolFile', display: 'highSchoolFileName' }
+            ];
+
+            fileInputs.forEach(item => {
+                const input = document.getElementById(item.input);
+                const display = document.getElementById(item.display);
+                if (input && display) {
+                    input.addEventListener('change', function() {
+                        if (this.files.length > 0) {
+                            display.textContent = '✅ ' + this.files[0].name;
+                            display.style.color = '#28a745';
+                        } else {
+                            display.textContent = '';
+                        }
+                    });
+                }
+            });
+
+            // Checkbox styling
+            document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        this.closest('.checkbox-item').classList.add('selected');
+                    } else {
+                        this.closest('.checkbox-item').classList.remove('selected');
+                    }
+                });
+            });
+        }
+
+        // Navigate to next step
+        function nextStep(step) {
+            // Validate current step before proceeding
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            // Hide current step
+            document.getElementById('step' + currentStep).classList.remove('active');
+            document.getElementById('step' + currentStep + 'Indicator').classList.remove('active');
+            document.getElementById('step' + currentStep + 'Indicator').classList.add('completed');
+
+            // Show next step
+            currentStep = step;
+            document.getElementById('step' + currentStep).classList.add('active');
+            document.getElementById('step' + currentStep + 'Indicator').classList.add('active');
+
+            // Update progress bar
+            updateProgress();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Navigate to previous step
+        function prevStep(step) {
+            // Hide current step
+            document.getElementById('step' + currentStep).classList.remove('active');
+            document.getElementById('step' + currentStep + 'Indicator').classList.remove('active');
+
+            // Show previous step
+            currentStep = step;
+            document.getElementById('step' + currentStep).classList.add('active');
+            document.getElementById('step' + currentStep + 'Indicator').classList.add('active');
+            document.getElementById('step' + currentStep + 'Indicator').classList.remove('completed');
+
+            // Update progress bar
+            updateProgress();
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Validate step
+        function validateStep(step) {
+            const stepElement = document.getElementById('step' + step);
+            const requiredInputs = stepElement.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    const errorText = input.parentElement.querySelector('.error-text');
+                    if (errorText) {
+                        errorText.style.display = 'block';
+                    }
+                    isValid = false;
+                } else {
+                    input.classList.remove('error');
+                    const errorText = input.parentElement.querySelector('.error-text');
+                    if (errorText) {
+                        errorText.style.display = 'none';
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        // Clear validation on input
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('input, select, textarea')) {
+                e.target.classList.remove('error');
+                const errorText = e.target.parentElement.querySelector('.error-text');
+                if (errorText) {
+                    errorText.style.display = 'none';
+                }
+            }
+        });
+
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Validate final step
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            // Disable submit button with spinner
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span>جاري الإرسال... Sending...';
+
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Add timestamp
+            const now = new Date();
+            document.getElementById('submissionDate').value = now.toLocaleDateString('ar-BH');
+            document.getElementById('timestamp').value = now.toISOString();
+
+            // Get file names
+            const getFileName = (fileId) => {
+                const fileInput = document.getElementById(fileId);
+                return fileInput && fileInput.files.length > 0 ? fileInput.files[0].name : '';
+            };
+            
+            // Get program info
+            const programType = formData.get('programType');
+            let selectedProgram = '';
+            if (programType === 'masters') {
+                selectedProgram = formData.get('mastersProgram');
+            } else if (programType === 'phd') {
+                selectedProgram = formData.get('phdProgram');
+            } else if (programType === 'bachelor') {
+                selectedProgram = formData.get('bachelorProgram');
+            }
+            
+            // Prepare data object
+            const data = {
+                // Personal Information
+                firstName: formData.get('firstName'),
+                fatherName: formData.get('fatherName'),
+                grandfatherName: formData.get('grandfatherName'),
+                familyName: formData.get('familyName'),
+                fullName: formData.get('firstName') + ' ' + formData.get('fatherName') + ' ' + formData.get('grandfatherName') + ' ' + formData.get('familyName'),
+                nationality: formData.get('nationality'),
+                
+                // Address Details
+                address: formData.get('address'),
+                streetNumber: formData.get('streetNumber'),
+                houseNumber: formData.get('houseNumber'),
+                
+                // Contact Information
+                studentPhone: formData.get('studentPhone'),
+                workPhone: formData.get('workPhone'),
+                email: formData.get('email'),
+                
+                // Program Selection
+                programType: programType,
+                selectedProgram: selectedProgram,
+                
+                // Documents (File Names)
+                cvFile: getFileName('cvFile'),
+                passportFile: getFileName('passportFile'),
+                idFile: getFileName('idFile'),
+                bachelorFile: getFileName('bachelorFile'),
+                mastersFile: getFileName('mastersFile'),
+                experienceFile: getFileName('experienceFile'),
+                photoFile: getFileName('photoFile'),
+                highSchoolFile: getFileName('highSchoolFile'),
+                
+                // Additional Notes
+                notes: formData.get('notes'),
+                
+                // System Fields
+                submissionDate: document.getElementById('submissionDate').value,
+                timestamp: document.getElementById('timestamp').value
+            };
+
+            try {
+                // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
+                const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'no-cors' // Important for Google Apps Script
+                });
+
+                // Show success message
+                successMessage.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Reset form and steps
+                this.reset();
+                currentStep = 1;
+                document.querySelectorAll('.form-step').forEach(step => step.classList.remove('active'));
+                document.getElementById('step1').classList.add('active');
+                document.querySelectorAll('.step').forEach(step => {
+                    step.classList.remove('active', 'completed');
+                });
+                document.getElementById('step1Indicator').classList.add('active');
+                updateProgress();
+
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'إرسال الطلب - Submit';
+
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'إرسال الطلب - Submit';
+            }
+        });
+    </script>
+</body>
+</html>
