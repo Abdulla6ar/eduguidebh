@@ -1141,9 +1141,8 @@
                 street_number: formData.get('streetNumber'),
                 house_number: formData.get('houseNumber'),
                 student_phone: formData.get('studentPhone'),
-                work_phone: formData.get('workPhone'),
-                email: formData.get('email')
-            };
+            work_phone: formData.get('workPhone'),
+            email: formData.get('email')            };
 
             emailjs.send('service_0q1h9qb', 'template_dbky9xk', templateParams)
                 .then((response) => {
