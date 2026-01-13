@@ -1128,7 +1128,31 @@
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = 'إرسال الطلب - Submit';
 
-            } catch (error) {
+            
+            // Send email via EmailJS
+            const formData = new FormData(this);
+            const templateParams = {
+                first_name: formData.get('firstName'),
+                father_name: formData.get('fatherName'),
+                grandfather_name: formData.get('grandfatherName'),
+                family_name: formData.get('familyName'),
+                nationality: formData.get('nationality'),
+                city: formData.get('city'),
+                street_number: formData.get('streetNumber'),
+                house_number: formData.get('houseNumber'),
+                student_phone: formData.get('studentPhone'),
+                work_phone: formData.get('workPhone'),
+                email: formData.get('email')
+            };
+
+            emailjs.send('service_0q1h9qb', 'template_dbky9xk', templateParams)
+                .then((response) => {
+                    console.log('Email sent successfully!', response.status, response.text);
+                })
+                .catch((error) => {
+                    console.error('Failed to send email:', error);
+                });
+} catch (error) {
                 console.error('Error:', error);
                 errorMessage.style.display = 'block';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
