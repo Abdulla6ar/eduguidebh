@@ -589,6 +589,10 @@
         }
     </style>
 </head>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script>
+                    const supabase = supabase.createClient('https://pwgnjqakrhiixyiowigf.supabase.co', 'sb_publishable_I6dFPNVMhwbncQ2_mNoUgg_M6idmPSN');
+                </script>
 <body>
     <div class="container">
         <!-- Progress Bar -->
@@ -1270,11 +1274,14 @@
 
             try {
                 // Save to localStorage for dashboard
-                let registrations = JSON.parse(localStorage.getItem('eduguide_registrations') || '[]');
-                data.id = Date.now();
-                registrations.push(data);
-                localStorage.setItem('eduguide_registrations', JSON.stringify(registrations));
-                
+                            // Save to Supabase database
+                            const registrationData = {
+                                                full_name: data.fullName, email: data.email, phone: data.studentPhone, university: programType, specialization: selectedProgram, study_location: programType
+                                                                };
+
+                            supabase.from('registrations').insert([registrationData]).then(({ data, error }) => {
+                                                if (error) { console.error('Error:', error); alert('حدث خطأ في حفظ البيانات'); } else { console.log('Data saved successfully!');}
+                                            });
                 // OPTIONAL: Also send to Google Apps Script if you set it up later
                 // const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
                 // await fetch(scriptURL, {
