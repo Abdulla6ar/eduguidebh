@@ -440,8 +440,13 @@
         }
 
         /* File Upload Styling */
+        .file-upload-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
         .file-upload-label {
-            display: block;
+            display: inline-block;
             padding: 16px 20px;
             background: #f8f9fa;
             border: 2px dashed var(--primary-color);
@@ -460,8 +465,13 @@
             border-color: var(--primary-dark);
         }
 
-        input[type="file"] {
-            display: none;
+        .file-upload-input {
+            position: absolute;
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            z-index: -1;
         }
 
         .file-name {
@@ -476,6 +486,106 @@
         *:focus-visible {
             outline: 2px solid var(--primary-color);
             outline-offset: 2px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+            position: relative;
+        }
+
+        .footer-title {
+            font-size: 16px;
+            color: #495057;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .university-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 20px;
+        }
+
+        .university-logo {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .university-logo.large {
+            height: 100px;
+        }
+
+        .university-logo.extra-large {
+            height: 130px;
+        }
+
+        .university-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .admin-link {
+            font-size: 11px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .admin-link:hover {
+            opacity: 1;
+        }
+
+        .admin-link a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .admin-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .university-logos {
+                gap: 20px;
+                padding: 15px;
+            }
+
+            .university-logo {
+                height: 55px;
+            }
+
+            .university-logo.large {
+                height: 70px;
+            }
+
+            .university-logo.extra-large {
+                height: 90px;
+            }
+
+            .footer-title {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -622,10 +732,12 @@
                     <div class="form-row single">
                         <div class="form-group">
                             <label>السيرة الذاتية (CV)</label>
-                            <input type="file" id="cvFile" name="cvFile" accept=".pdf,.doc,.docx">
-                            <label for="cvFile" class="file-upload-label">
-                                📎 اختر ملف السيرة الذاتية (PDF, DOC, DOCX)
-                            </label>
+                            <div class="file-upload-wrapper">
+                                <input type="file" id="cvFile" name="cvFile" accept=".pdf,.doc,.docx" class="file-upload-input">
+                                <label for="cvFile" class="file-upload-label">
+                                    📎 اختر ملف السيرة الذاتية (PDF, DOC, DOCX)
+                                </label>
+                            </div>
                             <span class="file-name" id="cvFileName"></span>
                             <span class="helper-text">اختياري - يمكنك رفع السيرة الذاتية</span>
                         </div>
@@ -739,40 +851,48 @@
 
                     <div class="form-group">
                         <label>صورة من جواز السفر <span class="required">*</span></label>
-                        <input type="file" id="passportFile" name="passportFile" accept=".pdf,.jpg,.jpeg,.png" required>
-                        <label for="passportFile" class="file-upload-label">
-                            📎 اختر ملف جواز السفر
-                        </label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="passportFile" name="passportFile" accept=".pdf,.jpg,.jpeg,.png" required class="file-upload-input">
+                            <label for="passportFile" class="file-upload-label">
+                                📎 اختر ملف جواز السفر (PDF, JPG, PNG)
+                            </label>
+                        </div>
                         <span class="file-name" id="passportFileName"></span>
                         <span class="error-text">هذا الحقل مطلوب</span>
                     </div>
 
                     <div class="form-group">
                         <label>صورة من الهوية / البطاقة الذكية <span class="required">*</span></label>
-                        <input type="file" id="idFile" name="idFile" accept=".pdf,.jpg,.jpeg,.png" required>
-                        <label for="idFile" class="file-upload-label">
-                            📎 اختر ملف الهوية
-                        </label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="idFile" name="idFile" accept=".pdf,.jpg,.jpeg,.png" required class="file-upload-input">
+                            <label for="idFile" class="file-upload-label">
+                                📎 اختر ملف الهوية (PDF, JPG, PNG)
+                            </label>
+                        </div>
                         <span class="file-name" id="idFileName"></span>
                         <span class="error-text">هذا الحقل مطلوب</span>
                     </div>
 
                     <div class="form-group">
                         <label>شهادة البكالوريوس وكشف الدرجات <span class="required">*</span></label>
-                        <input type="file" id="bachelorFile" name="bachelorFile" accept=".pdf,.jpg,.jpeg,.png" required>
-                        <label for="bachelorFile" class="file-upload-label">
-                            📎 اختر ملف شهادة البكالوريوس
-                        </label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="bachelorFile" name="bachelorFile" accept=".pdf,.jpg,.jpeg,.png" required class="file-upload-input">
+                            <label for="bachelorFile" class="file-upload-label">
+                                📎 اختر ملف شهادة البكالوريوس (PDF, JPG, PNG)
+                            </label>
+                        </div>
                         <span class="file-name" id="bachelorFileName"></span>
                         <span class="error-text">هذا الحقل مطلوب</span>
                     </div>
 
                     <div class="form-group">
                         <label>شهادة الماجستير وكشف الدرجات <span style="color: #667eea;">(لمتقدمي الدكتوراه)</span> <span class="required">*</span></label>
-                        <input type="file" id="mastersFile" name="mastersFile" accept=".pdf,.jpg,.jpeg,.png" required>
-                        <label for="mastersFile" class="file-upload-label">
-                            📎 اختر ملف شهادة الماجستير
-                        </label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="mastersFile" name="mastersFile" accept=".pdf,.jpg,.jpeg,.png" required class="file-upload-input">
+                            <label for="mastersFile" class="file-upload-label">
+                                📎 اختر ملف شهادة الماجستير (PDF, JPG, PNG)
+                            </label>
+                        </div>
                         <span class="file-name" id="mastersFileName"></span>
                         <span class="error-text">هذا الحقل مطلوب</span>
                     </div>
@@ -786,30 +906,36 @@
 
                     <div class="form-group">
                         <label>شهادة الخبرة <span style="color: #6c757d;">(اختياري)</span></label>
-                        <input type="file" id="experienceFile" name="experienceFile" accept=".pdf,.jpg,.jpeg,.png">
-                        <label for="experienceFile" class="file-upload-label">
-                            📎 اختر ملف شهادة الخبرة
-                        </label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="experienceFile" name="experienceFile" accept=".pdf,.jpg,.jpeg,.png" class="file-upload-input">
+                            <label for="experienceFile" class="file-upload-label">
+                                📎 اختر ملف شهادة الخبرة (PDF, JPG, PNG)
+                            </label>
+                        </div>
                         <span class="file-name" id="experienceFileName"></span>
                         <span class="helper-text">اختياري</span>
                     </div>
 
                     <div class="form-group">
                         <label>صورة شخصية <span style="color: #6c757d;">(غير ضرورية)</span></label>
-                        <input type="file" id="photoFile" name="photoFile" accept=".jpg,.jpeg,.png">
-                        <label for="photoFile" class="file-upload-label">
-                            📎 اختر الصورة الشخصية
-                        </label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="photoFile" name="photoFile" accept=".jpg,.jpeg,.png" class="file-upload-input">
+                            <label for="photoFile" class="file-upload-label">
+                                📎 اختر الصورة الشخصية (JPG, PNG)
+                            </label>
+                        </div>
                         <span class="file-name" id="photoFileName"></span>
                         <span class="helper-text">اختياري</span>
                     </div>
 
                     <div class="form-group">
                         <label>شهادة الثانوية العامة <span style="color: #6c757d;">(يمكن تقديمها لاحقاً)</span></label>
-                        <input type="file" id="highSchoolFile" name="highSchoolFile" accept=".pdf,.jpg,.jpeg,.png">
-                        <label for="highSchoolFile" class="file-upload-label">
-                            📎 اختر ملف شهادة الثانوية
-                        </label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="highSchoolFile" name="highSchoolFile" accept=".pdf,.jpg,.jpeg,.png" class="file-upload-input">
+                            <label for="highSchoolFile" class="file-upload-label">
+                                📎 اختر ملف شهادة الثانوية (PDF, JPG, PNG)
+                            </label>
+                        </div>
                         <span class="file-name" id="highSchoolFileName"></span>
                         <span class="helper-text">اختياري</span>
                     </div>
@@ -836,6 +962,31 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-title">شركاؤنا من الجامعات | Our University Partners</div>
+        
+        <div class="university-logos">
+            <img src="KU LOGO-2.png" alt="Kingdom University" class="university-logo extra-large">
+            <img src="University-of-Technology-Bahrain-1.png" alt="University of Technology Bahrain" class="university-logo large">
+            <img src="BUB_Logo-1.png" alt="British University of Bahrain" class="university-logo large">
+            <img src="AU Logo-1.png" alt="Ahlia University" class="university-logo large">
+            <img src="63a327f073bbfdb0d3168a03_شعار جامعة العلوم التطبيقية (1)-1.png" alt="Applied Science University" class="university-logo large">
+            <img src="63a327f073bbfd4a07168a1f_RUW logo-1.png" alt="Royal University for Women" class="university-logo large">
+            <img src="UCB_Logo (1)-1.png" alt="UCB" class="university-logo">
+            <img src="strathclyde_bahrain_logo-1.png" alt="Strathclyde Bahrain" class="university-logo">
+            <img src="logo-vatel-1.png" alt="Vatel" class="university-logo">
+            <img src="63c7dafe5d20aa1ad494d3dd_BIBFLogo (1)-1.png" alt="BIBF" class="university-logo">
+            <img src="63bfe80270936246fad736e1_GU_Logo-1.png" alt="Gulf University" class="university-logo">
+        </div>
+
+        <div class="footer-bottom">
+            <p style="color: #6c757d; font-size: 14px; margin: 0;">© 2026 EduGuide Educational Support</p>
+            <div class="admin-link">
+                <a href="admin-login.html">Admin</a>
+            </div>
         </div>
     </div>
 
@@ -1037,10 +1188,26 @@
             document.getElementById('submissionDate').value = now.toLocaleDateString('ar-BH');
             document.getElementById('timestamp').value = now.toISOString();
 
-            // Get file names
-            const getFileName = (fileId) => {
+            // Get file data (convert to base64 for storage)
+            const getFileData = async (fileId) => {
                 const fileInput = document.getElementById(fileId);
-                return fileInput && fileInput.files.length > 0 ? fileInput.files[0].name : '';
+                if (fileInput && fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    return new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            resolve({
+                                name: file.name,
+                                type: file.type,
+                                size: file.size,
+                                data: e.target.result // base64 data
+                            });
+                        };
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+                }
+                return null;
             };
             
             // Get program info
@@ -1053,6 +1220,18 @@
             } else if (programType === 'bachelor') {
                 selectedProgram = formData.get('bachelorProgram');
             }
+            
+            // Get all file data
+            const fileData = {
+                cvFile: await getFileData('cvFile'),
+                passportFile: await getFileData('passportFile'),
+                idFile: await getFileData('idFile'),
+                bachelorFile: await getFileData('bachelorFile'),
+                mastersFile: await getFileData('mastersFile'),
+                experienceFile: await getFileData('experienceFile'),
+                photoFile: await getFileData('photoFile'),
+                highSchoolFile: await getFileData('highSchoolFile')
+            };
             
             // Prepare data object
             const data = {
@@ -1078,15 +1257,8 @@
                 programType: programType,
                 selectedProgram: selectedProgram,
                 
-                // Documents (File Names)
-                cvFile: getFileName('cvFile'),
-                passportFile: getFileName('passportFile'),
-                idFile: getFileName('idFile'),
-                bachelorFile: getFileName('bachelorFile'),
-                mastersFile: getFileName('mastersFile'),
-                experienceFile: getFileName('experienceFile'),
-                photoFile: getFileName('photoFile'),
-                highSchoolFile: getFileName('highSchoolFile'),
+                // Documents (Complete File Data)
+                files: fileData,
                 
                 // Additional Notes
                 notes: formData.get('notes'),
@@ -1097,17 +1269,20 @@
             };
 
             try {
-                // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-                const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+                // Save to localStorage for dashboard
+                let registrations = JSON.parse(localStorage.getItem('eduguide_registrations') || '[]');
+                data.id = Date.now();
+                registrations.push(data);
+                localStorage.setItem('eduguide_registrations', JSON.stringify(registrations));
                 
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    mode: 'no-cors' // Important for Google Apps Script
-                });
+                // OPTIONAL: Also send to Google Apps Script if you set it up later
+                // const scriptURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+                // await fetch(scriptURL, {
+                //     method: 'POST',
+                //     body: JSON.stringify(data),
+                //     headers: { 'Content-Type': 'application/json' },
+                //     mode: 'no-cors'
+                // });
 
                 // Show success message
                 successMessage.style.display = 'block';
@@ -1128,29 +1303,7 @@
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = 'إرسال الطلب - Submit';
 
-            
-            // Send email via EmailJS
-            const formData = new FormData(this);
-            const templateParams = {
-                first_name: formData.get('firstName'),
-                father_name: formData.get('fatherName'),
-                grandfather_name: formData.get('grandfatherName'),
-                family_name: formData.get('familyName'),
-                nationality: formData.get('nationality'),
-                address: formData.get('address'),
-                street_number: formData.get('streetNumber'),
-                house_number: formData.get('houseNumber'),
-                student_phone: formData.get('studentPhone'),
-                work_phone: formData.get('workPhone'),
-                email: formData.get('email')
-            };
-                        emailjs.send('service_0q1h9qb', 'template_dbky9xk', templateParams).then((response) => {
-                    console.log('Email sent successfully!', response.status, response.text);
-                })
-                .catch((error) => {
-                    console.error('Failed to send email:', error);
-                });
-} catch (error) {
+            } catch (error) {
                 console.error('Error:', error);
                 errorMessage.style.display = 'block';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1160,17 +1313,6 @@
                 submitBtn.innerHTML = 'إرسال الطلب - Submit';
             }
         });
-
-    // EmailJS Configuration
-    emailjs.init('8xJTnvy3cNm2_H6MI');
-    
-    // TODO: Add emailjs.send() code here in the form success handler
-    // Example: emailjs.send('service_0q1h9qb', 'template_dbky9xk', templateParams)
-    
-</script>
-
-<!-- EmailJS SDK -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script></script>
+    </script>
 </body>
 </html>
