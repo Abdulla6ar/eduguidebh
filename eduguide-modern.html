@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGuide - دليلك للتعليم العالي في البحرين</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #28a745;
+            --primary-dark: #218838;
+            --primary-light: #d4edda;
+            --accent: #20c997;
+            --dark: #0a1f1c;
+            --gray-900: #1a1a1a;
+            --gray-800: #2d3748;
+            --gray-700: #4a5568;
+            --gray-600: #718096;
+            --gray-500: #a0aec0;
+            --gray-400: #cbd5e0;
+            --gray-300: #e2e8f0;
+            --gray-200: #edf2f7;
+            --gray-100: #f7fafc;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: var(--gray-800);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--dark);
+            color: var(--gray-400);
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .top-bar-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar-info {
+            display: flex;
+            gap: 30px;
+        }
+
+        .top-bar-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 280px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--gray-800);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #0a1f1c 0%, #1a3a34 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(40, 167, 69, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(32, 201, 151, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            color: var(--gray-400);
+            margin-bottom: 35px;
+            line-height: 1.8;
+        }
+
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--gray-300);
+            font-size: 16px;
+        }
+
+        .hero-feature svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .floating-card {
+            position: absolute;
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating-card.card-1 {
+            top: 10%;
+            left: -10%;
+        }
+
+        .floating-card.card-2 {
+            bottom: 10%;
+            right: -10%;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--white);
+            padding: 40px 20px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+        }
+
+        .stats-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--gray-600);
+            font-size: 15px;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 20px;
+            background: var(--gray-100);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--gray-900);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--gray-600);
+        }
+
+        .features-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            border: 1px solid var(--gray-300);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            color: var(--white);
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .feature-icon.no-icon {
+            display: none;
+        }
+
+        .feature-card.no-icon {
+            padding-top: 30px;
+        }
+
+        .feature-card.no-icon h3 {
+            margin-top: 0;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--gray-600);
+            line-height: 1.8;
+        }
+
+        /* Programs Section */
+        .programs-section {
+            padding: 100px 20px;
+            background: var(--white);
+        }
+
+        .programs-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .program-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+            border-color: var(--primary);
+        }
+
+        .program-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .program-header h3 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .program-header .duration {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+        }
+
+        .program-body {
+            padding: 35px 30px;
+        }
+
+        .program-price {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .price-label {
+            color: var(--gray-600);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .price-amount {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--primary);
+        }
+
+        .program-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .program-features li {
+            padding: 12px 0;
+            color: var(--gray-700);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .program-features li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .program-cta {
+            width: 100%;
+            padding: 14px;
+            background: var(--gray-900);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .program-cta:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-container h2 {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .cta-container p {
+            font-size: 20px;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: var(--gray-400);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about .footer-logo {
+            display: none;
+        }
+
+        .footer-about h3 {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h4 {
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid var(--gray-800);
+            text-align: center;
+            color: var(--gray-500);
+        }
+
+        /* University Logos */
+        .universities-section {
+            padding: 60px 20px;
+            background: var(--white);
+        }
+
+        .universities-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .university-logo {
+            height: 60px;
+            filter: grayscale(100%) opacity(0.6);
+            transition: all 0.3s;
+        }
+
+        .university-logo:hover {
+            filter: grayscale(0%) opacity(1);
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid,
+            .programs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .features-grid,
+            .programs-grid,
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-container h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <div class="top-bar-info">
+                <span>مساعدة مجانية 100% للطلاب السعوديين</span>
+            </div>
+            <div>
+                <span>جميع الجامعات معتمدة من وزارة التعليم السعودية</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="Green Modern Marketing Logo.pdf.png" alt="EduGuide">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#features">المميزات</a></li>
+                <li><a href="#programs">البرامج</a></li>
+                <li><a href="#universities">الجامعات</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="registration-form.html" class="btn btn-primary">سجّل الآن</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>طريقك للتعليم العالي في <span>البحرين</span> يبدأ من هنا</h1>
+                <p>مساعدة مجانية 100% في التسجيل الجامعي للطلاب السعوديين في برامج البكالوريوس والماجستير والدكتوراه في جامعات بحرينية معتمدة</p>
+                
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>خدماتنا مجانية 100% – الرسوم تدفع مباشرة للجامعة</span>
+                    </div>
+                    <div class="hero-feature">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>جميع الجامعات معتمدة من وزارة التعليم السعودية</span>
+                    </div>
+                    <div class="hero-feature">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>دراسة يومي الجمعة والسبت – مناسبة للموظفين</span>
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <a href="registration-form.html" class="btn btn-primary">ابدأ التسجيل المجاني</a>
+                    <a href="#programs" class="btn btn-outline">تصفح البرامج</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="generated-image (11).png" alt="EduGuide Education" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">11+</div>
+                <div class="stat-label">جامعة شريكة</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">طالب مسجل</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">25+</div>
+                <div class="stat-label">تخصص متاح</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">خدمة مجانية</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="section-header">
+            <span class="section-tag">لماذا نحن</span>
+            <h2>لماذا تختار ايديوقايد للتعليم؟</h2>
+            <p>نقدم لك أفضل الخدمات التعليمية المجانية لضمان قبولك في أفضل الجامعات</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card no-icon">
+                <h3>خدمة مجانية 100%</h3>
+                <p>ايديوقايد لا يتقاضى أي رسوم من الطالب، والرسوم الدراسية تُدفع مباشرة للجامعة</p>
+            </div>
+
+            <div class="feature-card no-icon">
+                <h3>جامعات معتمدة</h3>
+                <p>جميع الجامعات الشريكة معتمدة من وزارة التعليم السعودية</p>
+            </div>
+
+            <div class="feature-card no-icon">
+                <h3>إجراءات سريعة</h3>
+                <p>بعد تقديم مستنداتك، أول جامعة تقبلك ستتواصل معك خلال 5-7 أيام عمل</p>
+            </div>
+
+            <div class="feature-card no-icon">
+                <h3>خيارات متعددة</h3>
+                <p>نرسل ملفك لعدة جامعات معتمدة في البحرين لزيادة فرص قبولك</p>
+            </div>
+
+            <div class="feature-card no-icon">
+                <h3>مناسب للموظفين</h3>
+                <p>العديد من برامج الماجستير والدكتوراه تُدرَّس يومي الجمعة والسبت</p>
+            </div>
+
+            <div class="feature-card no-icon">
+                <h3>دعم كامل</h3>
+                <p>نتابع حالتك من التسجيل حتى القبول والتواصل مع الجامعة</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs-section" id="programs">
+        <div class="section-header">
+            <span class="section-tag">البرامج</span>
+            <h2>اختر البرنامج المناسب لك</h2>
+            <p>مجموعة واسعة من التخصصات في البكالوريوس والماجستير والدكتوراه</p>
+        </div>
+
+        <div class="programs-grid">
+            <div class="program-card">
+                <div class="program-header">
+                    <h3>برامج الدكتوراه</h3>
+                    <div class="duration">المدة: 3 سنوات</div>
+                </div>
+                <div class="program-body">
+                    <div class="program-price">
+                        <div class="price-label">النطاق السعري</div>
+                        <div class="price-amount">179,000 - 189,000 ريال</div>
+                    </div>
+                    <ul class="program-features">
+                        <li>إدارة الأعمال</li>
+                        <li>القانون</li>
+                        <li>المحاسبة</li>
+                        <li>الدراسة يومي الجمعة والسبت</li>
+                        <li>معتمدة من وزارة التعليم السعودية</li>
+                    </ul>
+                    <button class="program-cta" onclick="window.location.href='registration-form.html'">سجّل الآن</button>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <div class="program-header">
+                    <h3>برامج الماجستير</h3>
+                    <div class="duration">المدة: 1.5 سنة</div>
+                </div>
+                <div class="program-body">
+                    <div class="program-price">
+                        <div class="price-label">النطاق السعري</div>
+                        <div class="price-amount">55,000 - 75,900 ريال</div>
+                    </div>
+                    <ul class="program-features">
+                        <li>MBA - إدارة الأعمال</li>
+                        <li>الذكاء الاصطناعي</li>
+                        <li>الأمن السيبراني</li>
+                        <li>13 تخصصاً متاحاً</li>
+                        <li>مناسب للموظفين</li>
+                    </ul>
+                    <button class="program-cta" onclick="window.location.href='registration-form.html'">سجّل الآن</button>
+                </div>
+            </div>
+
+            <div class="program-card">
+                <div class="program-header">
+                    <h3>برامج البكالوريوس</h3>
+                    <div class="duration">المدة: 3-4 سنوات</div>
+                </div>
+                <div class="program-body">
+                    <div class="program-price">
+                        <div class="price-label">النطاق السعري</div>
+                        <div class="price-amount">69,000 - 220,000 ريال</div>
+                    </div>
+                    <ul class="program-features">
+                        <li>الأمن السيبراني</li>
+                        <li>إدارة الأعمال</li>
+                        <li>علوم الحاسب</li>
+                        <li>6 تخصصات متاحة</li>
+                        <li>خصومات لحملة الدبلوم</li>
+                    </ul>
+                    <button class="program-cta" onclick="window.location.href='registration-form.html'">سجّل الآن</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Universities Section -->
+    <section class="universities-section" id="universities">
+        <div class="section-header">
+            <span class="section-tag">الشركاء</span>
+            <h2>جامعاتنا الشريكة المعتمدة</h2>
+            <p>نعمل مع أفضل الجامعات المعتمدة في البحرين</p>
+        </div>
+        <div class="universities-grid">
+            <img src="KU LOGO-2.png" alt="Kingdom University" class="university-logo" style="height: 80px;">
+            <img src="University-of-Technology-Bahrain-1.png" alt="UTB" class="university-logo">
+            <img src="BUB_Logo-1.png" alt="BUB" class="university-logo">
+            <img src="AU Logo-1.png" alt="Ahlia University" class="university-logo">
+            <img src="63a327f073bbfdb0d3168a03_شعار جامعة العلوم التطبيقية (1)-1.png" alt="ASU" class="university-logo">
+            <img src="63a327f073bbfd4a07168a1f_RUW logo-1.png" alt="RUW" class="university-logo">
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>هل أنت مستعد لبدء رحلتك التعليمية؟</h2>
+            <p>سجّل الآن واحصل على قبول جامعي في أفضل الجامعات المعتمدة في البحرين</p>
+            <div class="cta-buttons">
+                <a href="registration-form.html" class="btn btn-white">ابدأ التسجيل المجاني</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h3>EduGuide</h3>
+                <p>مكتب استشارات تعليمية يساعد الطلاب السعوديين على الالتحاق بجامعات بحرينية معتمدة بشكل مجاني 100%</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>روابط سريعة</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#features">المميزات</a></li>
+                    <li><a href="#programs">البرامج</a></li>
+                    <li><a href="registration-form.html">التسجيل</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>البرامج</h4>
+                <ul class="footer-links">
+                    <li><a href="#programs">برامج الدكتوراه</a></li>
+                    <li><a href="#programs">برامج الماجستير</a></li>
+                    <li><a href="#programs">برامج البكالوريوس</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>تواصل معنا</h4>
+                <ul class="footer-links">
+                    <li>ar@eduguidebh.com</li>
+                    <li>www.eduguidebh.com</li>
+                    <li>البحرين</li>
+                    <li>الأحد - الخميس<br>9:00 ص - 5:00 م</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 EduGuide Educational Support - جميع الحقوق محفوظة</p>
+            <p style="margin-top: 10px; font-size: 13px;">Office 13, 644 Street, 406 Sanabis, Bahrain | CR-183368</p>
+        </div>
+    </footer>
+</body>
+</html>
