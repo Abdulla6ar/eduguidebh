@@ -421,11 +421,16 @@
         </div>
     </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // Check if user is logged in
         if (!sessionStorage.getItem('eduguide_admin_logged_in')) {
             window.location.href = 'admin-login.html';
         }
+
+            const supabaseUrl = 'https://pwgnjqakrhiixyiowigf.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3Z25qcWFrcmhpaXh5aW93aWdmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY4OTkyNjQsImV4cCI6MjA1MjQ3NTI2NH0.y6K4n0t3VIvuT9CgWz0jy4_J7b8eKHOq-XGD72TvvDc';
+            const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
         // Display username
         const username = sessionStorage.getItem('eduguide_admin_username') || 'edu1';
@@ -437,9 +442,14 @@
             window.location.href = 'admin-login.html';
         }
 
-        function loadDashboard() {
-            const registrations = JSON.parse(localStorage.getItem('eduguide_registrations') || '[]');
-            
+        async function loadDashboard() {
+        // Fetch registrations from Supabase
+                    const { data: registrations, error } = await supabase.from('eduguide_registrations').select('*').order('created_at', { ascending: false });
+
+                    if (error) {
+                                    console.error('Error fetching registrations:', error);
+                                    return;
+                                }
             // Update statistics
             document.getElementById('totalRegistrations').textContent = registrations.length;
             
