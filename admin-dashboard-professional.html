@@ -6,6 +6,7 @@
     <title>لوحة التحكم | EduGuide Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -848,6 +849,11 @@
             window.location.href = 'admin-login.html';
         }
 
+            // Supabase configuration
+            const supabaseUrl = 'https://pwgnjqakrhiixyiowigf.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB3Z25qcWFrcmhpaXh5aW93aWdmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY4OTkyNjQsImV4cCI6MjA1MjQ3NTI2NH0.y6K4n0t3VIvuT9CgWz0jy4_J7b8eKHOq-XGD72TvvDc';
+            const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
         // Get username
         const username = sessionStorage.getItem('eduguide_admin_username') || 'edu1';
         document.getElementById('userName').textContent = username;
@@ -873,9 +879,18 @@
         }
 
         // Load dashboard
-        function loadDashboard() {
-            const registrations = JSON.parse(localStorage.getItem('eduguide_registrations') || '[]');
-            
+        async function loadDashboard() {
+        // Fetch from Supabase
+                    const { data: registrations, error } = await supabase.from('eduguide_registrations').select('*').order('created_at', { ascending: false });
+
+                    if (error) {
+                                    console.error('Error fetching:', error);
+                                    return;
+                                }
+
+                    if (!registrations || registrations.length === 0) {
+                                    const registrations = [];
+                                }
             // Update stats
             document.getElementById('totalRegs').textContent = registrations.length;
             document.getElementById('totalBadge').textContent = registrations.length;
