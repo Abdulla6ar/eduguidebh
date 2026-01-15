@@ -1002,6 +1002,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             updateProgress();
             setupEventListeners();
+            
+    // تعبئة وقت الإرسال
+    const now = new Date();
+    document.getElementById('submissionDate').value = now.toISOString().split('T')[0];
+    document.getElementById('timestamp').value = now.toISOString();
         });
 
         // Setup event listeners
@@ -1279,7 +1284,7 @@
                                                 full_name: data.fullName, email: data.email, phone: data.studentPhone, university: programType, specialization: selectedProgram, study_location: programType
                                                                 };
 
-                            supabase.from('registrations').insert([registrationData]).then(({ data, error }) => {
+                            supabasesupabaseClient.from('registrations').insert([registrationData]).then(({ data, error }) => {
                                                 if (error) { console.error('Error:', error); alert('حدث خطأ في حفظ البيانات'); } else { console.log('Data saved successfully!');}
                                             });
                 // OPTIONAL: Also send to Google Apps Script if you set it up later
