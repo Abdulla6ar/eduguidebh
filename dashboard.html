@@ -313,8 +313,8 @@
 
         async function loadDashboard() {
             try {
-                // Fetch from existing database API (already on server)
-                const response = await fetch('/api-get-registrations.php');
+                // Fetch from your existing database API
+                const response = await fetch('/api/get-registrations.php');
                 const result = await response.json();
                 
                 if (!result.success) {

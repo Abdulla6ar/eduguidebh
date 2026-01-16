@@ -1,0 +1,106 @@
+========================================
+UPDATE EXISTING FILES ON SERVER
+========================================
+
+Your server already has the backend APIs working!
+You just need to update 2 HTML files.
+
+SERVER INFO:
+- URL: https://eduguidebh.com
+- IP: 164.90.228.133
+- Database: eduguidebh_db
+- User: eduguidebh_user
+- Password: EduGuide2026Secure!
+
+EXISTING APIS (Already Working):
+✅ /api-submit-phd-registration.php
+✅ /api-get-registrations.php
+✅ /api-delete-registration.php
+✅ /db_config.php
+
+FILES TO UPDATE:
+================
+
+1. registration-form.html
+   Location: /var/www/html/registration-form.html
+   Change: API endpoint to '/api-submit-phd-registration.php'
+   
+2. admin-dashboard-professional.html
+   Location: /var/www/html/admin-dashboard-professional.html
+   Change: API endpoint to '/api-get-registrations.php'
+
+========================================
+METHOD 1: Upload via DigitalOcean Console
+========================================
+
+Step 1: Open Console
+- Go to DigitalOcean dashboard
+- Click "Access" → "Launch Droplet Console"
+
+Step 2: Backup existing files
+cd /var/www/html
+cp registration-form.html registration-form.html.backup
+cp admin-dashboard-professional.html admin-dashboard-professional.html.backup
+
+Step 3: Update registration-form.html
+nano registration-form.html
+
+Find this line (search with Ctrl+W):
+const apiURL = '/api/submit-registration.php';
+
+Change to:
+const apiURL = '/api-submit-phd-registration.php';
+
+Save: Ctrl+X, Y, Enter
+
+Step 4: Update admin-dashboard-professional.html
+nano admin-dashboard-professional.html
+
+Find this line:
+const response = await fetch('/api/get-registrations.php');
+
+Change to:
+const response = await fetch('/api-get-registrations.php');
+
+Save: Ctrl+X, Y, Enter
+
+Step 5: Test!
+Visit: https://eduguidebh.com/registration-form.html
+
+========================================
+METHOD 2: Use FileZilla (After Adding SSH Key)
+========================================
+
+1. Add SSH key to server (see previous instructions)
+2. Connect FileZilla to 164.90.228.133
+3. Upload the updated files from READY_TO_UPLOAD/
+
+========================================
+QUICK TEST COMMANDS:
+========================================
+
+# Test database connection
+mysql -u eduguidebh_user -p'EduGuide2026Secure!' eduguidebh_db -e "SELECT COUNT(*) FROM registrations;"
+
+# Check if APIs exist
+ls -la /var/www/html/api-*
+
+# Test submit API
+curl -X POST https://eduguidebh.com/api-submit-phd-registration.php \
+  -H "Content-Type: application/json" \
+  -d '{"firstName":"Test","familyName":"User","email":"test@example.com"}'
+
+# Test get API
+curl https://eduguidebh.com/api-get-registrations.php
+
+========================================
+WHAT'S LEFT TO DO:
+========================================
+
+☐ Update registration-form.html API endpoint
+☐ Update admin-dashboard-professional.html API endpoint
+☐ Test form submission
+☐ Verify data appears in admin dashboard
+☐ Done! ✅
+
+========================================

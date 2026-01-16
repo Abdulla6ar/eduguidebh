@@ -1,0 +1,81 @@
+========================================
+QUICK PASTE METHOD - DIGITALOCEAN CONSOLE
+========================================
+
+Use this if you don't want to install FileZilla!
+
+STEP 1: Open DigitalOcean Console
+- Go to your Droplet dashboard
+- Click "Access" → "Launch Droplet Console"
+
+STEP 2: Prepare Directories
+========================================
+cd /var/www/html
+mkdir -p api uploads
+chmod 775 uploads
+
+STEP 3: Create Files One by One
+========================================
+
+FILE 1: registration-form.html
+----------------------------
+nano registration-form.html
+# Paste content from Desktop/Edu/Edu/registration-form.html
+# Press Ctrl+X, then Y, then Enter
+
+FILE 2: dashboard.html
+----------------------------
+nano dashboard.html
+# Paste content from Desktop/registration-system/dashboard.html
+# Press Ctrl+X, then Y, then Enter
+
+FILE 3: login.html
+----------------------------
+nano login.html
+# Paste content from Desktop/registration-system/login.html
+# Press Ctrl+X, then Y, then Enter
+
+FILE 4: api/submit-registration.php
+----------------------------
+nano api/submit-registration.php
+# Paste content from READY_TO_UPLOAD/api/submit-registration.php
+# Press Ctrl+X, then Y, then Enter
+
+FILE 5: api/get-registrations.php
+----------------------------
+nano api/get-registrations.php
+# Paste content from READY_TO_UPLOAD/api/get-registrations.php
+# Press Ctrl+X, then Y, then Enter
+
+FILE 6: api/test-connection.php
+----------------------------
+nano api/test-connection.php
+# Paste content from READY_TO_UPLOAD/api/test-connection.php
+# Press Ctrl+X, then Y, then Enter
+
+STEP 4: Set Permissions
+========================================
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
+chmod 775 /var/www/html/uploads
+
+STEP 5: Configure Database (IMPORTANT!)
+========================================
+nano api/test-connection.php
+# Find and change:
+# 'username' => 'YOUR_DB_USERNAME'
+# 'password' => 'YOUR_DB_PASSWORD'
+
+nano api/submit-registration.php
+# Same changes
+
+nano api/get-registrations.php
+# Same changes
+
+STEP 6: Test!
+========================================
+Visit: http://164.90.228.133/api/test-connection.php
+
+If you see "Connection Successful" - YOU'RE DONE!
+
+========================================
