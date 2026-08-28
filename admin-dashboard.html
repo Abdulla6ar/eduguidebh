@@ -439,6 +439,7 @@
         function logout() {
             sessionStorage.removeItem('eduguide_admin_logged_in');
             sessionStorage.removeItem('eduguide_admin_username');
+            sessionStorage.removeItem('adminLoggedIn');
             window.location.href = 'admin-login.html';
         }
 

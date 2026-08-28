@@ -223,9 +223,10 @@
 
             // Check credentials
             if (validUsers[username] && validUsers[username] === password) {
-                // Set session
+                // Set session (both keys so every dashboard accepts the login)
                 sessionStorage.setItem('eduguide_admin_logged_in', 'true');
                 sessionStorage.setItem('eduguide_admin_username', username);
+                sessionStorage.setItem('adminLoggedIn', 'true');
                 // Redirect to NEW professional dashboard
                 window.location.href = 'admin-dashboard-professional.html';
             } else {
