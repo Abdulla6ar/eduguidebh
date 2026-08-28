@@ -844,7 +844,20 @@
 
     <script>
         // Check authentication
-        if (!sessionStorage.getItem('eduguide_admin_logged_in')) {
+        // Accept either session key: login.html and admin-login.html historically
+        // set different ones, which bounced a valid login straight back out.
+        function isAdminLoggedIn() {
+            return sessionStorage.getItem('adminLoggedIn') === 'true' ||
+                   sessionStorage.getItem('eduguide_admin_logged_in') === 'true';
+        }
+
+        function clearAdminSession() {
+            sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('eduguide_admin_logged_in');
+            sessionStorage.removeItem('eduguide_admin_username');
+        }
+
+        if (!isAdminLoggedIn()) {
             window.location.href = 'admin-login.html';
         }
 
