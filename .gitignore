@@ -1,0 +1,6 @@
+# Never commit databases or local data
+*.sqlite
+*.sqlite3
+*.db
+data/
+node_modules/
