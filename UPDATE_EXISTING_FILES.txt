@@ -10,7 +10,7 @@ SERVER INFO:
 - IP: 164.90.228.133
 - Database: eduguidebh_db
 - User: eduguidebh_user
-- Password: EduGuide2026Secure!
+- Password: (stored on the server — do not commit passwords to this repo)
 
 EXISTING APIS (Already Working):
 ✅ /api-submit-phd-registration.php
@@ -80,7 +80,7 @@ QUICK TEST COMMANDS:
 ========================================
 
 # Test database connection
-mysql -u eduguidebh_user -p'EduGuide2026Secure!' eduguidebh_db -e "SELECT COUNT(*) FROM registrations;"
+mysql -u eduguidebh_user -p eduguidebh_db -e "SELECT COUNT(*) FROM registrations;"
 
 # Check if APIs exist
 ls -la /var/www/html/api-*
