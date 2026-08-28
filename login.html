@@ -170,8 +170,10 @@
 
             // Check credentials
             if (username === 'edu1' && password === 'edubahrain') {
-                // Set session
+                // Set session (both keys so every dashboard accepts the login)
                 sessionStorage.setItem('adminLoggedIn', 'true');
+                sessionStorage.setItem('eduguide_admin_logged_in', 'true');
+                sessionStorage.setItem('eduguide_admin_username', username);
                 // Redirect to dashboard
                 window.location.href = 'dashboard.html';
             } else {

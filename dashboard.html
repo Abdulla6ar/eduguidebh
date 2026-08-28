@@ -301,13 +301,15 @@
     </div>
 
     <script>
-        // Check if user is logged in
-        if (!sessionStorage.getItem('adminLoggedIn')) {
+        // Check if user is logged in (accept the session key from either login page)
+        if (!sessionStorage.getItem('adminLoggedIn') && !sessionStorage.getItem('eduguide_admin_logged_in')) {
             window.location.href = 'login.html';
         }
 
         function logout() {
             sessionStorage.removeItem('adminLoggedIn');
+            sessionStorage.removeItem('eduguide_admin_logged_in');
+            sessionStorage.removeItem('eduguide_admin_username');
             window.location.href = 'login.html';
         }
 
